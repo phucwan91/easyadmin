@@ -6,7 +6,7 @@ easy_admin:
         - {entity: 'Product', icon: 'home'}
    list:
       actions: ['show']
-      collapse_actions: true
+      collapse_actions: false
    entities:
       Product:
           class: App\Entity\Product
@@ -14,12 +14,15 @@ easy_admin:
             sort: ['id', 'ASC']
             fields:
               - id
-              - 'countryList'
+              - name
+              - images
           form:
               fields:
+                  - name
                   - 
-                    property: 'country'
+                    property: images
                     type: 'App\Form\OrderType'
+                    type_options: { required: false }
       User:
           class: App\Entity\User
           form:

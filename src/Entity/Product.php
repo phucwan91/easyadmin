@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Image;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -17,31 +19,63 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="string")
      */
-    private $country;
+    private $name;
+
+    /**
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="product", cascade={"persist", "remove"}, fetch="EAGER")
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCountry()
+    public function getName()
     {
-        return $this->country;
+        return $this->name;
     }
 
-    public function setCountry($country): self
+    public function setName($name): self
     {
-
-        $this->country = $country;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getCountryList()
+    public function getImages()
     {
-        return json_encode($this->country);
-        // return implode(' ', $this->country);
+        return $this->images;
+    }
+
+    public function setImages($images)
+    {
+        // dump($images);
+        // die;
+        $this->images->clear();
+
+        foreach ($images as $image) {
+           // $this->images->add($image);
+
+           $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function addImage($image)
+    {
+        $this->images->add($image);
+
+        return $this;
     }
 }
