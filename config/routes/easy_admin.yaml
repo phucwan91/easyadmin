@@ -1,0 +1,12 @@
+easy_admin_bundle:
+    resource: '@EasyAdminBundle/Controller/EasyAdminController.php'
+    prefix: /admin
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /admin
+
+# sonata_user_resetting:
+#     resource: '@FOSUserBundle/Resources/config/routing/resetting.xml'
+#     prefix: /resetting
