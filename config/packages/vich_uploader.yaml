@@ -1,9 +1,9 @@
 parameters:
-    app.path.product_images: /uploads/images/products
+    app.path.product_images: uploads
 
 vich_uploader:
     db_driver: orm
     mappings:
         product_images:
             uri_prefix:         '%app.path.product_images%'
-            upload_destination: '%kernel.root_dir%/public/'%app.path.product_images%'
+            upload_destination: '%kernel.root_dir%/../public/%app.path.product_images%'
